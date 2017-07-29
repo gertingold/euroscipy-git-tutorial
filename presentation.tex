@@ -1,0 +1,57 @@
+% lualatex presentation
+
+\documentclass[svgnames]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+\usepackage{arev}
+\usepackage{beramono}
+\usepackage{fontawesome}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\usetheme{default}
+\setbeamertemplate{navigation symbols}
+{%
+%  \hspace{3em}
+%  \vbox{%
+%  \hbox{\insertslidenavigationsymbol}
+%  \hbox{\insertframenavigationsymbol}
+%  \hbox{\insertbackfindforwardnavigationsymbol}
+%  \vspace{2em}}
+}
+
+\setbeamercolor{alerted text}{fg=red!70!black}
+\setbeamercolor{structure}{fg=Navy}
+
+
+\hypersetup{%
+  pdftitle={Introduction to Version Control with Git}
+  ,pdfauthor={Gert-Ludwig Ingold <gert.ingold@physik.uni-augsburg.de>}
+  ,pdfsubject={Tutorial at EuroSciPy 2017, Erlangen 30.8.2017}
+  ,pdfkeywords={Git, version control system, tutorial, EuroSciPy}
+}
+
+\lstset{%
+  language=bash
+  ,basicstyle={\ttfamily}
+  ,escapechar=/
+}
+
+\graphicspath{{./images/}}
+
+\begin{document}
+
+\begin{frame}
+
+ \vspace{1truecm}
+ \begin{center}
+  \structure{\large\textbf{Introduction to Version Control with Git}}\\[0.3truecm]
+  \structure{Gert-Ludwig Ingold}
+
+  \vspace{1.5truecm}
+  \faicon{github}\ \ttfamily{\scriptsize https://github.com/gertingold/euroscipy-git-tutorial.git}
+ \end{center}
+\end{frame}
+
+
+\end{document}
