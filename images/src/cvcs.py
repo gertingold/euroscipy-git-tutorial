@@ -1,4 +1,4 @@
-from pyx import canvas, color, deco, path, style, text, trafo, unit
+from pyx import canvas, color, deco, deformer, path, style, text, trafo, unit
 
 servercolor = color.rgb(0.5, 0.5, 0.8)
 arrowcolor = color.grey(0.5)
@@ -36,4 +36,28 @@ for dx, dy in ((-2, -3.7), (0, -4.2), (2, -3.7)):
                   path.closepath())
     c.fill(p, [clientcolor, trafo.translate(dx, dy-1.3*r)])
 c.text(0, -5.5, 'clients', [text.halign.center])
+
+dy = 0.8
+dx = 1.5
+versionoff = 1.5
+cf = canvas.canvas()
+hueoff = 0.17
+nr_revisions = 0
+for nr, (name, versions) in enumerate((('file 1', (0, 2, 4, 5)),
+                                       ('file 2', (0, 1, 2, 3, 5)),
+                                       ('file 3', (1, 4, 5)))):
+    nr_revisions = max(nr_revisions, max(versions))
+    hue = hueoff+nr/3
+    cf.text(0, -nr*dy, name, [color.hsb(hue, 1, 0.5), text.valign.middle])
+    for nver, (v1, v2) in enumerate(zip(versions[:-1], versions[1:])):
+        y = -(nr+0.4)*dy
+        lv = len(versions)-1
+        cf.fill(path.rect(v1*dx+versionoff+0.1, y, (v2-v1)*dx-0.2, 0.8*dy),
+                [color.hsb(hue, 1-(lv-1-nver)/(lv-1)*0.7, 0.6)])
+for n in range(nr_revisions):
+    cf.text((n+0.5)*dx+versionoff, 0.5, 'r{}'.format(n+1), [text.halign.center])
+cf.stroke(path.rect(3*dx+versionoff, -2.6*dy, dx, 2.6*dy+1.0),
+              [style.linewidth.THIck, deformer.smoothed(0.3)])
+    
+c.insert(cf, [trafo.translate(4.5, -2)])
 c.writePDFfile()
