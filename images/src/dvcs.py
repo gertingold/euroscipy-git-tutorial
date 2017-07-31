@@ -32,9 +32,17 @@ text.preamble(r'\usepackage{arev}\usepackage[T1]{fontenc}')
 unit.set(xscale=1.3)
 
 c = canvas.canvas()
-for x, y in ((0, 1), (sin(2*pi/3), cos(2*pi/3)), (-sin(2*pi/3), cos(2*pi/3))):
-    c.insert(server(0.5), [trafo.translate(x, y)])
-    c.insert(client(), [trafo.scale(0.5).translated(2*x, 2*y)])
+pos = [(0, 1), (sin(2*pi/3), cos(2*pi/3)), (-sin(2*pi/3), cos(2*pi/3))]
+for x, y in pos:
+    c.insert(server(0.3), [trafo.translate(1.5*x, 1.5*y)])
+    c.insert(client(), [trafo.scale(0.5).translated(3*x, 3*y+0.15)])
+    c.stroke(path.line(2.7*x, 2.7*y, 1.9*x, 1.9*y),
+               [arrowcolor, deco.earrow.large, deco.barrow.large, style.linewidth.THick])
+pos.append(pos[0])
+fak = 0.3
+for (x1, y1), (x2,y2) in zip(pos[:-1], pos[1:]):
+    c.stroke(path.line(1.5*x1+fak*(x2-x1), 1.5*y1+fak*(y2-y1), 1.5*x2-fak*(x2-x1), 1.5*y2-fak*(y2-y1)), 
+               [arrowcolor, deco.earrow.Large, deco.barrow.Large, style.linewidth.THIck])
 
 
 c.writePDFfile()
