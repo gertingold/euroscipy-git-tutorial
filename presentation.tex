@@ -6,6 +6,7 @@
 \usepackage{arev}
 \usepackage{beramono}
 \usepackage{fontawesome}
+\usepackage{xcolor}
 \usepackage{listings}
 \usepackage{hyperref}
 
@@ -22,6 +23,8 @@
 
 \setbeamercolor{alerted text}{fg=red!70!black}
 \setbeamercolor{structure}{fg=Navy}
+\definecolor{wrong}{rgb}{0.7, 0, 0}
+\definecolor{right}{rgb}{0, 0.5, 0}
 
 
 \hypersetup{%
@@ -34,7 +37,7 @@
 \lstset{%
   language=bash
   ,basicstyle={\ttfamily}
-  ,escapechar=/
+  ,alsoletter=$
 }
 
 \graphicspath{{./images/}}
@@ -106,6 +109,74 @@
  \begin{center}
   \includegraphics[height=0.6\textheight]{dvcs-github}
  \end{center}
+\end{frame}
+
+\begin{frame}{The prime time project}
+ \textit{\structure{Question}}
+
+ How many prime numbers can be interpreted as time in the format HH:MM?
+
+ \vspace{1\baselineskip}
+ \textit{\structure{Examples}}
+
+ \textcolor{wrong}{2179 is a prime, but 21:79 is not a valid time}\\
+ \textcolor{right}{2137 is a prime and 21:37 is a valid time}\\
+ \textcolor{right}{953 is a prime and 9:53 is a valid time}\\
+ \textcolor{wrong}{89 is a prime, but 0:89 is not a valid time}\\
+ \textcolor{right}{41 is a prime and 0:41 is a valid time}\\
+ \textcolor{right}{7 is a prime and 0:07 is a valid time}
+
+ \vspace{1.5\baselineskip}
+ \begin{center}
+ \uncover<2>{\structure{\bfseries And, of course, we are going to use\\ a Git repository.}}
+ \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Creating a respository}
+ \structure{Initializing a new repository}
+
+ \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+  ~/primetime$ git init
+ \end{lstlisting}
+
+ \vspace{\baselineskip}
+ \structure{What has happened?}
+ \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+  ~/primetime$ ls -a
+  .  ..  .git
+  ~/primetime$ ls .git
+  branches  description  hooks  objects
+  config    HEAD         info   refs
+ \end{lstlisting}
+
+ \begin{center}
+  \uncover<2>{\alert{Don't touch \texttt{.git} unless you know what you are doing!}}
+ \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Tell Git who you are}
+
+ \structure{Specify your name and your email address}
+ \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+  $ git config --global user.name <your name>
+  $ git config --global user.email <your email>
+ \end{lstlisting}
+
+ \vspace{\baselineskip}
+ \structure{\ldots and, if you want, your preferred editor}
+ \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+  $ git config --global core.editor <editor>
+ \end{lstlisting}
+
+ \vspace{\baselineskip}
+ \structure{example configuration}
+ \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+  $ git config --list
+  user.email=gert.ingold@physik.uni-augsburg.de
+  user.name=Gert-Ludwig Ingold
+  core.editor=vim
+  ...
+ \end{lstlisting}
 \end{frame}
 
 \end{document}
