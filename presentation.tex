@@ -26,6 +26,8 @@
 \setbeamercolor{structure}{fg=Navy}
 \definecolor{wrong}{rgb}{0.7, 0, 0}
 \definecolor{right}{rgb}{0, 0.5, 0}
+\definecolor{gitred}{rgb}{0.6, 0, 0}
+\definecolor{gitgreen}{rgb}{0, 0.5, 0}
 
 
 \hypersetup{%
@@ -36,9 +38,10 @@
 }
 
 \lstset{%
-  language=bash
-  ,basicstyle={\ttfamily}
+  language={}
+  ,basicstyle={\ttfamily\scriptsize}
   ,alsoletter=$
+  ,backgroundcolor=\color{black!10}
 }
 
 \graphicspath{{./images/}}
@@ -153,13 +156,13 @@
 \begin{frame}[fragile]{Creating a respository}
  \structure{Initializing a new repository}
 
- \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+ \begin{lstlisting}
   ~/primetime$ git init
  \end{lstlisting}
 
  \vspace{\baselineskip}
  \structure{What has happened?}
- \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+ \begin{lstlisting}
   ~/primetime$ ls -a
   .  ..  .git
   ~/primetime$ ls .git
@@ -175,26 +178,84 @@
 \begin{frame}[fragile]{Tell Git who you are}
 
  \structure{Specify your name and your email address}
- \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+ \begin{lstlisting}
   $ git config --global user.name <your name>
   $ git config --global user.email <your email>
  \end{lstlisting}
 
  \vspace{\baselineskip}
  \structure{\ldots and, if you want, your preferred editor}
- \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+ \begin{lstlisting}
   $ git config --global core.editor <editor>
  \end{lstlisting}
 
  \vspace{\baselineskip}
  \structure{example configuration}
- \begin{lstlisting}[backgroundcolor=\color{black!10}, language=bash]
+ \begin{lstlisting}
   $ git config --list
   user.email=gert.ingold@physik.uni-augsburg.de
   user.name=Gert-Ludwig Ingold
   core.editor=vim
   ...
  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{It's prime time now}
+ \texttt{primetime.py}
+ \begin{lstlisting}
+  def istime(n):
+      hh, mm = divmod(n, 60)
+      return 0 <= hh <= 23 and 0 <= mm <= 59
+
+  print(sum(istime(n) for n in range(2360)))
+ \end{lstlisting}
+
+ \vspace{0.2truecm}
+ \structure{What is the status?}
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}, escapechar=\%]
+  $ git status
+  On branch master
+
+  Initial commit
+
+  Untracked files:
+    (use "git add <file>..." to include in what will be committed)
+
+	  %\textcolor{gitred}{primetime.py}%
+
+  nothing added to commit but untracked files present (use "git add" to track)
+ \end{lstlisting}
+ \begin{itemize}
+  \item Git has noticed our new file but ignores it
+  \item Git tells us what to do in order to put the file under version control:
+	\texttt{git add <file>}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Adding a file}
+ \begin{lstlisting}
+  ~/primetime$ git add primetime.py
+ \end{lstlisting}
+
+ \vspace{0.2truecm}
+ \structure{How did the status change?}
+ \begin{lstlisting}[escapechar=\%]
+  ~/primetime$ git status
+ On branch master
+
+ Initial commit
+
+ Changes to be committed:
+   (use "git rm --cached <file>..." to unstage)
+
+         %\textcolor{gitgreen}{new file:}%   %\textcolor{gitgreen}{primetime.py}%
+ \end{lstlisting}
+ \begin{itemize}
+  \item Our file is now in the staging area, \alert{it is not under version control yet!}
+  \item Our file can now be committed, but we can add more files first
+  \item Git tells us how we can remove the file from the staging area if we put
+        it there by accident
+ \end{itemize}
 \end{frame}
 
 \end{document}
