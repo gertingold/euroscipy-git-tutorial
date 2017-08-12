@@ -76,7 +76,13 @@ for nr, (name, versions) in enumerate((('file 1', (0, 2, 4, 5)),
         cf.text(xll+0.5*width, yll+0.5*height, gethashstring(),
                 [text.size(-4), text.halign.center, text.valign.middle, color.grey(1)])
 for n in range(nr_revisions):
-    cf.text((n+0.5)*dx+versionoff, 0.5, gethashstring(), [text.size(-4), text.halign.center])
+    xcenter = (n+0.5)*dx+versionoff
+    y = 0.5
+    cf.text(xcenter, y, gethashstring(), [text.size(-4), text.halign.center])
+    if n:
+        yshift = 0.1
+        cf.stroke(path.line(xcenter-0.33*dx, y+yshift, xcenter-0.67*dx, y+yshift),
+                  [deco.earrow])
 cf.stroke(path.rect(3*dx+versionoff, -2.6*dy, dx, 2.6*dy+1.0),
               [style.linewidth.THIck, deformer.smoothed(0.3)])
     
