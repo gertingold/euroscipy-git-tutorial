@@ -276,11 +276,32 @@ Changes to be committed:
  1 file changed, 5 insertions(+)
  create mode 100644 primetime.py
  \end{lstlisting}
+ \begin{itemize}
+  \item The option \texttt{-m} allows to specify a commit message
+  \item Without this option, an editor is opened
+  \item Limit the commit message to 50 characters
+ \end{itemize}
+
+ \vspace{0.2truecm}
+ \structure{Check status to make sure that everything is fine}
  \begin{lstlisting}
 ~/primetime$ git status
 On branch master
 nothing to commit, working tree clean
  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Some tips on committing}
+ \begin{itemize}
+  \item A commit can contain several files, but all changes should
+	represent a logical unit
+  \item \textit{atomic commit:} Each commit refers only to a single
+	basic change
+  \item In most cases it is not a good idea to commit only at the
+	end of a long working day
+  \item If you have made unrelated changes but want to do an atomic
+	commit, take a look at\\ \texttt{git add -p}
+ \end{itemize}
 \end{frame}
 
 \end{document}
