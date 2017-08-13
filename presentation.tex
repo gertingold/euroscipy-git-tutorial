@@ -732,9 +732,27 @@ Switched to a new branch 'experimental'
   master       5782233 Merge branch 'eratosthenes'
  \end{lstlisting}
  \begin{itemize}
-  \item Now we have a branch at \textt{982ae11} on which we can work and commit
+  \item Now we have a branch at \texttt{982ae11} on which we can work and commit
         changes
  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tagging versions}
+ Sometimes it is useful to mark a specific version, e.g. the submitted version of a paper.
+
+ \structure{Tagging the present version}
+ \begin{lstlisting}
+~/primetime$ git tag -a first_final -m'a first reasonably complete version'
+~/primetime$ git tag
+ \end{lstlisting}
+
+ \structure{Tagging an older version}
+ \begin{lstlisting}
+~/primetime$ git tag -a v0.1 116fd26 -m'early version'
+~/primetime$ git tag
+first_final
+v0.1
+ \end{lstlisting}
 \end{frame}
 
 \end{document}
