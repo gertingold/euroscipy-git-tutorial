@@ -740,18 +740,38 @@ Switched to a new branch 'experimental'
 \begin{frame}[fragile]{Tagging versions}
  Sometimes it is useful to mark a specific version, e.g. the submitted version of a paper.
 
+ \vspace{0.2truecm}
  \structure{Tagging the present version}
- \begin{lstlisting}
+ \begin{lstlisting}[breaklines=true]
 ~/primetime$ git tag -a first_final -m'a first reasonably complete version'
-~/primetime$ git tag
  \end{lstlisting}
 
  \structure{Tagging an older version}
  \begin{lstlisting}
 ~/primetime$ git tag -a v0.1 116fd26 -m'early version'
+ \end{lstlisting}
+
+ \begin{lstlisting}
 ~/primetime$ git tag
 first_final
 v0.1
+ \end{lstlisting}
+
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+~/primetime$ git show v0.1
+tag v0.1
+Tagger: Gert-Ludwig Ingold <gert.ingold@physik.uni-augsburg.de>
+Date:   Mon Aug 14 01:12:07 2017 +0200
+
+early version
+
+commit 116fd26220dddb7ec3eb359d3c35ea9c312bb49c
+Author: Gert-Ludwig Ingold <gert.ingold@physik.uni-augsburg.de>
+Date:   Sun Aug 13 16:16:46 2017 +0200
+
+    first version of primetime completed
+
+...
  \end{lstlisting}
 \end{frame}
 
