@@ -204,7 +204,7 @@ core.editor=vim
  \texttt{primetime.py}
  \begin{lstlisting}
 def istime(n):
-    hh, mm = divmod(n, 60)
+    hh, mm = divmod(n, 100)
     return 0 <= hh <= 23 and 0 <= mm <= 59
 
 print(sum(istime(n) for n in range(2360)))
@@ -271,8 +271,8 @@ Changes to be committed:
 
 \begin{frame}[fragile]{Committing a file}
  \begin{lstlisting}
-~/primetime$ git commit -m'function to identify times added'
-[master (root-commit) 09bb2bb] function to identify times added
+~/primetime$ git commit -m'added function to identify times'
+[master (root-commit) 3733ef5] added function to identify times
  1 file changed, 5 insertions(+)
  create mode 100644 primetime.py
  \end{lstlisting}
