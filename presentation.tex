@@ -157,17 +157,17 @@
  \structure{Initializing a new repository}
 
  \begin{lstlisting}
-  ~/primetime$ git init
+~/primetime$ git init
  \end{lstlisting}
 
  \vspace{\baselineskip}
  \structure{What has happened?}
  \begin{lstlisting}
-  ~/primetime$ ls -a
-  .  ..  .git
-  ~/primetime$ ls .git
-  branches  description  hooks  objects
-  config    HEAD         info   refs
+~/primetime$ ls -a
+.  ..  .git
+~/primetime$ ls .git
+branches  description  hooks  objects
+config    HEAD         info   refs
  \end{lstlisting}
 
  \begin{center}
@@ -179,51 +179,52 @@
 
  \structure{Specify your name and your email address}
  \begin{lstlisting}
-  $ git config --global user.name <your name>
-  $ git config --global user.email <your email>
+$ git config --global user.name <your name>
+$ git config --global user.email <your email>
  \end{lstlisting}
 
  \vspace{\baselineskip}
  \structure{\ldots and, if you want, your preferred editor}
  \begin{lstlisting}
-  $ git config --global core.editor <editor>
+$ git config --global core.editor <editor>
  \end{lstlisting}
 
  \vspace{\baselineskip}
  \structure{example configuration}
  \begin{lstlisting}
-  $ git config --list
-  user.email=gert.ingold@physik.uni-augsburg.de
-  user.name=Gert-Ludwig Ingold
-  core.editor=vim
-  ...
+$ git config --list
+user.email=gert.ingold@physik.uni-augsburg.de
+user.name=Gert-Ludwig Ingold
+core.editor=vim
+...
  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{It's prime time now}
  \texttt{primetime.py}
  \begin{lstlisting}
-  def istime(n):
-      hh, mm = divmod(n, 60)
-      return 0 <= hh <= 23 and 0 <= mm <= 59
+def istime(n):
+    hh, mm = divmod(n, 60)
+    return 0 <= hh <= 23 and 0 <= mm <= 59
 
-  print(sum(istime(n) for n in range(2360)))
+print(sum(istime(n) for n in range(2360)))
  \end{lstlisting}
 
  \vspace{0.2truecm}
  \structure{What is the status?}
- \begin{lstlisting}[basicstyle={\ttfamily\tiny}, escapechar=\%]
-  $ git status
-  On branch master
+ \begin{lstlisting}[breaklines=true
+                    ,escapechar=\%]
+$git status
+On branch master
 
-  Initial commit
+Initial commit
 
-  Untracked files:
-    (use "git add <file>..." to include in what will be committed)
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
 
-	  %\textcolor{gitred}{primetime.py}%
+        %\textcolor{gitred}{primetime.py}%
 
-  nothing added to commit but untracked files present (use "git add" to track)
+nothing added to commit but untracked files present (use "git add" to track)
  \end{lstlisting}
  \begin{itemize}
   \item Git has noticed our new file but ignores it
@@ -234,21 +235,21 @@
 
 \begin{frame}[fragile]{Adding a file}
  \begin{lstlisting}
-  ~/primetime$ git add primetime.py
+~/primetime$ git add primetime.py
  \end{lstlisting}
 
  \vspace{0.2truecm}
  \structure{How did the status change?}
  \begin{lstlisting}[escapechar=\%]
-  ~/primetime$ git status
- On branch master
+~/primetime$ git status
+On branch master
 
- Initial commit
+Initial commit
 
- Changes to be committed:
-   (use "git rm --cached <file>..." to unstage)
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
 
-         %\textcolor{gitgreen}{new file:}%   %\textcolor{gitgreen}{primetime.py}%
+        %\textcolor{gitgreen}{new file:}%   %\textcolor{gitgreen}{primetime.py}%
  \end{lstlisting}
  \begin{itemize}
   \item Our file is now in the staging area, \alert{it is not under version control yet!}
@@ -267,6 +268,20 @@
   \item At a given time, different versions of a specific file can exist in
 	any of the three areas
  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Committing a file}
+ \begin{lstlisting}
+~/primetime$ git commit -m'function to identify times added'
+[master (root-commit) 09bb2bb] function to identify times added
+ 1 file changed, 5 insertions(+)
+ create mode 100644 primetime.py
+ \end{lstlisting}
+ \begin{lstlisting}
+~/primetime$ git status
+On branch master
+nothing to commit, working tree clean
+ \end{lstlisting}
 \end{frame}
 
 \end{document}
