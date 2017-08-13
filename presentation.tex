@@ -28,6 +28,7 @@
 \definecolor{right}{rgb}{0, 0.5, 0}
 \definecolor{gitred}{rgb}{0.6, 0, 0}
 \definecolor{gitgreen}{rgb}{0, 0.5, 0}
+\definecolor{gitbrown}{rgb}{0.6, 0.3, 0}
 
 
 \hypersetup{%
@@ -404,9 +405,253 @@ Changes to be committed:
 [master 116fd26] first version of primetime completed
  2 files changed, 9 insertions(+), 1 deletion(-)
  create mode 100644 primes.py
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Branches}
+ \begin{lstlisting}
 ~/primetime$ git status
 On branch master
 nothing to commit, working tree clean
+ \end{lstlisting}
+ \begin{itemize}
+  \item We are on branch \texttt{master}, the default branch
+ \end{itemize}
+ \begin{lstlisting}[escapechar=\%]
+gert@gli7440:~/primetime$ git branch
+* %\textcolor{gitgreen}{master}%
+ \end{lstlisting}
+ \structure{What are branches good for?}
+ \begin{itemize}
+  \item Branches allow development of features without polluting
+        the master branch
+  \item Tip: Use a separate branch for each feature
+  \item Unsuccessful experiments can easily be removed by deleting
+        a branch
+  \item In collaborative work, a pull request (see later) can easily
+        focus on the new code
+  \item Code can be merged into other branches
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Adding a new branch}
+ In our prime time project, we are unhappy with our code for prime tests.
+ Instead, we want to create a list of primes by means of the sieve of
+ Eratosthenes. We develop the new feature in a separate branch so that the
+ version in the master branch is always working.
+
+ \begin{lstlisting}[breaklines=true]
+~/primetime$ git checkout eratosthenes
+error: pathspec 'eratosthenes' did not match any file(s) known to git.
+ \end{lstlisting}
+ \begin{itemize}
+  \item \texttt{git checkout} changes between branches, but our branch
+        does not yet exist. Use option \texttt{-b}
+ \end{itemize}
+ \begin{lstlisting}
+gert@gli7440:~/primetime$ git checkout -b eratosthenes
+Switched to a new branch 'eratosthenes'
+ \end{lstlisting}
+
+ \vspace{0.2truecm}
+ Let us verify the branch
+ \begin{lstlisting}[escapechar=\%]
+gert@gli7440:~/primetime$ git branch
+* %\textcolor{gitgreen}{eratosthenes}%
+  master
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Improved primetime code (I)}
+ \texttt{primes.py}
+ \begin{lstlisting}
+from math import sqrt
+import numpy as np
+
+def isprime(n):
+    if n < 2: return False
+    for divisor in range(2, n):
+        if not n % divisor:
+            return False
+    return True
+
+def eratosthenes(nmax):
+    sieve = np.ones(nmax+1, dtype=np.bool)
+    sieve[:2] = False
+    for candidate in range(2, int(sqrt(nmax))+1):
+        if sieve[candidate]:
+            sieve[candidate*candidate::candidate] = False
+    primes = np.arange(nmax+1)[sieve]
+    return primes
+ \end{lstlisting}
+ \begin{lstlisting}
+~/primetime$ git commit -a -m'added sieve of Eratosthenes'
+[eratosthenes 982ae11] added sieve of Eratosthenes
+ 1 file changed, 12 insertions(+)
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Improved primetime code (II)}
+ \addtolength\linewidth{0.7truecm}
+ \texttt{primetime.py}
+ \begin{lstlisting}
+from primes import eratosthenes
+
+def istime(n):
+    hh, mm = divmod(n, 100)
+    return 0 <= hh <= 23 and 0 <= mm <= 59
+
+print(sum(istime(n) for n in eratosthenes(2359)))
+ \end{lstlisting}
+ \begin{lstlisting}
+~/primetime$ git commit -a -m'make use of Eratosthenes in primetime'
+[eratosthenes c9dfe03] make use of Eratosthenes in primetime
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Working on branches in parallel}
+ In the meantime, an idea comes up to improve the function \texttt{isprime}.
+ We make the corresponding changes in the master branch.
+
+ First switch to the master branch:
+ \begin{lstlisting}
+~/primetime$ git checkout master
+Switched to branch 'master'
+ \end{lstlisting}
+
+ Here, \texttt{primes.py} does not contain the function \texttt{eratosthenes}.
+ We replace the code by
+ \begin{lstlisting}
+from math import sqrt
+
+def isprime(n):
+    if n < 2: return False
+    for divisor in range(2, int(sqrt(n))+1):
+        if not n % divisor:
+            return False
+    return True
+ \end{lstlisting}
+ \begin{lstlisting}
+~/primetime$ git commit -a -m'improved prime test'
+[master ebc424d] improved prime test
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Commits in different branches}
+ \addtolength\linewidth{0.5truecm}
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git log  --graph --branches --oneline
+* %\textcolor{gitbrown}{ebc424d}% improved prime test
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{982ae11}% added sieve of Eratosthenes
+%\textcolor{gitred}{|/}%  
+* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
+* %\textcolor{gitbrown}{c552c10}% .gitignore added
+* %\textcolor{gitbrown}{3733ef5}% added function to identify times
+ \end{lstlisting}
+
+ \vspace{0.2truecm}
+ \structure{Merging the content of the \texttt{eratosthenes} branch into the \texttt{master}
+            branch}
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git branch
+  eratosthenes
+  * %\textcolor{gitgreen}{master}%
+  ~/primetime$ git merge eratosthenes
+  Auto-merging primes.py
+  CONFLICT (content): Merge conflict in primes.py
+  Automatic merge failed; fix conflicts and then commit the result.
+ \end{lstlisting}
+ \begin{itemize}
+  \item \texttt{primetime.py} corresponds now to the \texttt{eratosthenes} branch
+  \item In \texttt{primes.py} a merge conflict needs to be resolved
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{A merge conflict}
+ \begin{lstlisting}[escapeinside=`´]
+from math import sqrt
+`\textcolor{red}{<\/<\/<\/<\/<\/<\/< HEAD}´
+`\textcolor{red}{=======}´
+`\textcolor{red}{import numpy as np}´
+`\textcolor{red}{>\/>\/>\/>\/>\/>\/> eratosthenes}´
+
+def isprime(n):
+    if n < 2: return False
+    for divisor in range(2, int(sqrt(n))+1):
+        if not n % divisor:
+            return False
+    return True
+
+def eratosthenes(nmax):
+...
+ \end{lstlisting}
+ \begin{itemize}
+  \item Alternative 1 between \texttt{>\/>\/>\/>\/>\/>\/>} and \texttt{=======}\\
+	\texttt{HEAD} = version being merged into
+
+  \item Alternative 2 between \texttt{=======} and \texttt{<\/<\/<\/<\/<\/<\/<}\\
+	\texttt{eratosthenes} = version being merged
+  \item Bring the file into the desired form and commit it
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Resolving a merge conflict}
+ new version of \texttt{primes.py}
+ \begin{lstlisting}
+from math import sqrt
+import numpy as np
+
+def isprime(n):
+    if n < 2: return False
+...
+ \end{lstlisting}
+ \begin{lstlisting}
+~/primetime$ git commit -a
+[master 5782233] Merge branch 'eratosthenes'
+ \end{lstlisting}
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git log --graph --branches --oneline
+*   %\textcolor{gitbrown}{5782233}% Merge branch 'eratosthenes'
+%\textcolor{gitred}{|}\textcolor{gitgreen}{\textbackslash}%  
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
+%\textcolor{gitred}{| }%* %\textcolor{gitbrown}{982ae11}% added sieve of Eratosthenes
+* %\textcolor{gitgreen}{|}% %\textcolor{gitbrown}{ebc424d}% improved prime test
+%\textcolor{gitgreen}{|/}%  
+* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
+* %\textcolor{gitbrown}{c552c10}% .gitignore added
+* %\textcolor{gitbrown}{3733ef5}% added function to identify times
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Deleting a branch}
+ \begin{lstlisting}
+~/primetime$ git branch -D eratosthenes
+Deleted branch eratosthenes (was c9dfe03).
+ \end{lstlisting}
+ \begin{itemize}
+  \item option D must be uppercase = \alert{Attention, danger!}
+ \end{itemize}
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git branch
+* %\textcolor{gitgreen}{master}%
+ \end{lstlisting}
+ \begin{itemize}
+  \item The old versions still exist
+ \end{itemize}
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git log --graph --branches --oneline
+*   %\textcolor{gitbrown}{5782233}% Merge branch 'eratosthenes'
+%\textcolor{gitred}{|}\textcolor{gitgreen}{\textbackslash}%  
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
+%\textcolor{gitred}{| }%* %\textcolor{gitbrown}{982ae11}% added sieve of Eratosthenes
+* %\textcolor{gitgreen}{|}% %\textcolor{gitbrown}{ebc424d}% improved prime test
+%\textcolor{gitgreen}{|/}%  
+* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
+* %\textcolor{gitbrown}{c552c10}% .gitignore added
+* %\textcolor{gitbrown}{3733ef5}% added function to identify times
  \end{lstlisting}
 \end{frame}
 
