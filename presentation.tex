@@ -28,6 +28,7 @@
 \definecolor{right}{rgb}{0, 0.5, 0}
 \definecolor{gitred}{rgb}{0.6, 0, 0}
 \definecolor{gitgreen}{rgb}{0, 0.5, 0}
+\definecolor{gitblue}{rgb}{0, 0, 0.6}
 \definecolor{gitbrown}{rgb}{0.6, 0.3, 0}
 
 
@@ -653,6 +654,87 @@ Deleted branch eratosthenes (was c9dfe03).
 * %\textcolor{gitbrown}{c552c10}% .gitignore added
 * %\textcolor{gitbrown}{3733ef5}% added function to identify times
  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Accessing a specific version}
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git log --oneline --graph --branches --decorate
+*   %\textcolor{gitbrown}{5782233 (}\textcolor{gitblue}{HEAD ->} \textcolor{gitgreen}{master}\textcolor{gitbrown}{)}% Merge branch 'eratosthenes'
+%\textcolor{gitred}{|}\textcolor{gitgreen}{\textbackslash}%  
+%\textcolor{gitred}{|} * \textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
+%\textcolor{gitred}{|} * \textcolor{gitbrown}{982ae11}% added sieve of Eratosthenes
+* %\textcolor{gitgreen}{|} \textcolor{gitbrown}{ebc424d}% improved prime test
+%\textcolor{gitgreen}{|/}%  
+* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
+* %\textcolor{gitbrown}{c552c10}% .gitignore added
+* %\textcolor{gitbrown}{3733ef5}% added function to identify times
+ \end{lstlisting}
+ \begin{itemize}
+  \item absolute reference: HEAD or SHA1 hash
+  \item relative reference:\\[0.1truecm]
+        \begin{tabular}{lll}
+         parent & HEAD\textasciicircum & \texttt{ebc424d}\\
+         parent & c552c10\textasciicircum & \texttt{3733ef5}\\
+         2nd parent & HEAD\textasciicircum2 & \texttt{c9dfe03}\\
+         grandparent & HEAD\textasciicircum\textasciicircum & \texttt{116fd26}\\
+         grandparent & HEAD\textasciitilde2 & \texttt{116fd26}\\
+        \end{tabular}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Detached HEAD}
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+~/primetime$ git checkout 982ae11
+Note: checking out '982ae11'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 982ae11... added sieve of Eratosthenes
+ \end{lstlisting}
+
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git log --oneline --graph --branches --decorate
+*   %\textcolor{gitbrown}{5782233 (}\textcolor{gitgreen}{master}\textcolor{gitbrown}{)}% Merge branch 'eratosthenes'
+%\textcolor{gitred}{|}\textcolor{gitgreen}{\textbackslash}%  
+%\textcolor{gitred}{|} * \textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
+%\textcolor{gitred}{|} * \textcolor{gitbrown}{982ae11 (}\textcolor{gitblue}{HEAD}\textcolor{gitbrown}{)}% added sieve of Eratosthenes
+* %\textcolor{gitgreen}{|} \textcolor{gitbrown}{ebc424d}% improved prime test
+%\textcolor{gitgreen}{|/}%  
+* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
+* %\textcolor{gitbrown}{c552c10}% .gitignore added
+* %\textcolor{gitbrown}{3733ef5}% added function to identify times
+ \end{lstlisting}
+
+ \begin{itemize}
+  \item HEAD is not attached to a branch, it is detached
+  \item In order to commit something, a branch needs to be created
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Attaching HEAD to a branch}
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git branch
+* %\textcolor{gitgreen}{(HEAD detached at 982ae11)}%
+  master
+ \end{lstlisting}
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git checkout -b experimental
+Switched to a new branch 'experimental'
+~/primetime$ git branch -v
+* %\textcolor{gitgreen}{experimental}% 982ae11 added sieve of Eratosthenes
+  master       5782233 Merge branch 'eratosthenes'
+ \end{lstlisting}
+ \begin{itemize}
+  \item Now we have a branch at \textt{982ae11} on which we can work and commit
+        changes
+ \end{itemize}
 \end{frame}
 
 \end{document}
