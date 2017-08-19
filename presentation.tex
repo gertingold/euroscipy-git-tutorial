@@ -163,7 +163,110 @@ paper.tex.firsttry
 \begin{frame}{Where to get Git}
 \end{frame}
 
-\begin{frame}{How to get help}
+\begin{frame}[fragile]{How to get help: \texttt{git help}}
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+$ git help
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone      Clone a repository into a new directory
+   init       Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add        Add file contents to the index
+   mv         Move or rename a file, a directory, or a symlink
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+   bisect     Use binary search to find the commit that introduced a bug
+   grep       Print lines matching a pattern
+   log        Show commit logs
+   show       Show various types of objects
+   status     Show the working tree status
+
+grow, mark and tweak your common history
+   branch     List, create, or delete branches
+   checkout   Switch branches or restore working tree files
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   merge      Join two or more development histories together
+   rebase     Reapply commits on top of another base tip
+   tag        Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch      Download objects and refs from another repository
+   pull       Fetch from and integrate with another repository or a local branch
+   push       Update remote refs along with associated objects
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{How to get help on a specific command}
+
+ \structure{\texttt{git help <command>}}
+ \addtolength\linewidth{0.5truecm}
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+$ git help add
+NAME
+       git-add - Add file contents to the index
+
+SYNOPSIS
+       git add [--verbose | -v] [--dry-run | -n] [--force | -f] [--interactive | -i]
+                 [--patch | -p] [--edit | -e] [--[no-]all | --[no-]ignore-removal |
+                 [--update | -u]] [--intent-to-add | -N] [--refresh] [--ignore-errors]
+                 [--ignore-missing] [--chmod=(+|-)x] [--] [<pathspec>...]
+
+DESCRIPTION
+
+       This command updates the index using the current content found in the working
+       tree, to prepare the content staged for the next commit. It typically adds
+       the current content of existing paths as a whole, but with some options it
+       can also be used to add content with only part of the changes made to the
+       working tree files applied, or remove paths that do not exist in the working
+       tree anymore.
+
+...
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Accessing Git tutorials}
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+$ git help -g
+The common Git guides are:
+
+   attributes   Defining attributes per path
+   everyday     Everyday Git With 20 Commands Or So
+   glossary     A Git glossary
+   ignore       Specifies intentionally untracked files to ignore
+   modules      Defining submodule properties
+   revisions    Specifying revisions and ranges for Git
+   tutorial     A tutorial introduction to Git (for version 1.5.1 or newer)
+   workflows    An overview of recommended workflows with Git
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+ \end{lstlisting}
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+$git help everyday
+
+NAME
+       giteveryday - A useful minimum set of commands for Everyday Git
+
+SYNOPSIS
+       Everyday Git With 20 Commands Or So
+
+DESCRIPTION
+       Git users can broadly be grouped into four categories for the purposes of
+       describing here a small set of useful command for everyday Git.
+
+       -   Individual Developer (Standalone) commands are essential for anybody who
+           makes a commit, even for somebody who works alone.
+
+       -   If you work with other people, you will need commands listed in the
+           Individual Developer (Participant) section as well.
+...
+ \end{lstlisting}
 \end{frame}
 
 \begin{frame}{The prime time project}
@@ -821,7 +924,7 @@ Date:   Sun Aug 13 16:16:46 2017 +0200
  \end{itemize}
 \end{frame}
 
-\begin{frame}[{Cloning a repository}
+\begin{frame}{Cloning a repository}
  \structure{Scenario:} You want to get the content of a repository without contributing
 	to its development.
 
