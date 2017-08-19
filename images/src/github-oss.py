@@ -69,8 +69,8 @@ c.insert(repo('local Git repo', color.hsb(0.04, 1, 0.6), color.hsb(0.04, 0.1, 1)
 opcolor = color.hsb(0.3, 1, 0.4)
 c.stroke(path.line(2.1, 2.5, 4.4, 1.2),
          [deco.earrow, style.linestyle.dashed, opcolor])
-c.text(2.4, 1.7, r'\textsf{fork}', [opcolor])
-c.text(2.4, 1.4, r'\scriptsize\textsf{(only once)}', [opcolor])
+c.text(2.3, 1.7, r'\textsf{fork}', [opcolor])
+c.text(2.3, 1.4, r'\scriptsize\textsf{(only once)}', [opcolor])
 
 p = path.path(path.moveto(5, 1.3),
               path.curveto(5, 1.7, 4.6, 2.9, 2.1, 2.9))
@@ -84,9 +84,14 @@ c.text(0.2, -1.2, r'\textsf{pull \scriptsize or}', [opcolor])
 c.text(0.2, -1.7, r'\textsf{fetch/merge}', [opcolor])
 
 p = path.path(path.moveto(4.0, -1.1),
-              path.curveto(4.0, 0, 5, -0.9, 5, 0.5))
+              path.curveto(4.8, -0.5, 5, 0., 5, 0.5))
 c.stroke(p, [deco.earrow, opcolor])
-c.text(4.3, -0.8, r'\textsf{push}', [opcolor])
+c.text(4.7, -0.8, r'\textsf{push}', [opcolor])
+
+p = path.path(path.moveto(4.8, 0.5),
+              path.curveto(4.0, 0, 3.8, -0.5, 3.8, -1.1))
+c.stroke(p, [deco.earrow, opcolor])
+c.text(3.2, -0.5, r'\textsf{pull}', [opcolor])
 
 maintainercolor = color.hsb(0.7, 1, 0.5)
 usercolor = color.hsb(0.05, 1, 0.5)
