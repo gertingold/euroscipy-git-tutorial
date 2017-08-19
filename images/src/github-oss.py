@@ -31,6 +31,7 @@ def write(size, color):
                   path.lineto(0, -0.2),
                   path.lineto(-0.2, 0),
                   path.lineto(-0.2, 0.8),
+                  path.closepath(),
                   path.moveto(0, 0.8),
                   path.lineto(0, 0.05),
                   path.moveto(-0.2, 0),
