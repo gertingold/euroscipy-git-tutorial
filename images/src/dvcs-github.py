@@ -49,6 +49,6 @@ for phi in (0, 120, 240):
                  [arrowcolor, deco.earrow.large, deco.barrow.large, style.linewidth.THick,
                   trafo.rotate(phi)])
 c.insert(server(0.5, color.hsb(0.5, 0.8, 0.5), 0.13))
-c.text(0.6, 0.2, 'Gitlab / Github server', [color.hsb(0.5, 0.8, 0.5), text.size.small])
+c.text(0.8, 0.2, 'Gitlab / Github server', [color.hsb(0.5, 0.8, 0.5), text.size.small])
 
 c.writePDFfile()
