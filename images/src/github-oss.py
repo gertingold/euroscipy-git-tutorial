@@ -44,9 +44,10 @@ def write(size, color):
 basename = os.path.splitext(sys.argv[0])[0]
 
 text.set(text.LatexRunner)
+text.preamble(r'\usepackage{arev}\usepackage[T1]{fontenc}')
 c = canvas.canvas()
 
-wd = 6.7
+wd = 6.9
 ht = 3.5
 githubfgcolor = color.grey(0.4)
 githubbgcolor = color.grey(0.97)
@@ -75,43 +76,43 @@ c.text(wd+1.5, ht-1.4, r'\footnotesize\textsf{maintainer}', [maintainercolor])
 
 c.insert(repo('upstream', color.hsb(0.55, 1, 0.6), color.hsb(0.55, 0.1, 1)),
          [trafo.translate(0.5, 2.8)])
-c.insert(read(1, maintainercolor), [trafo.translate(0.8, 2.35)])
-c.insert(write(1, maintainercolor), [trafo.translate(1.15, 2.35)])
-c.insert(read(1, usercolor), [trafo.translate(1.6, 2.35)])
+c.insert(read(1, maintainercolor), [trafo.translate(0.85, 2.3)])
+c.insert(write(1, maintainercolor), [trafo.translate(1.2, 2.3)])
+c.insert(read(1, usercolor), [trafo.translate(1.65, 2.3)])
 
 c.insert(repo('local Git repo', color.hsb(0.04, 1, 0.6), color.hsb(0.04, 0.1, 1)),
          [trafo.translate(2.9, -1.6)])
-c.insert(read(1, usercolor), [trafo.translate(5.4, -1.6)])
-c.insert(write(1, usercolor), [trafo.translate(5.75, -1.6)])
+c.insert(read(1, usercolor), [trafo.translate(5.75, -1.6)])
+c.insert(write(1, usercolor), [trafo.translate(6.1, -1.6)])
 
 c.writePDFfile('{}_1.pdf'.format(basename))
 
 c.insert(repo('origin', color.hsb(0.13, 1, 0.6), color.hsb(0.13, 0.1, 1)),
          [trafo.translate(4.6, 0.8)])
 
-c.insert(read(1, maintainercolor), [trafo.translate(5.9, 1.05)])
-c.insert(read(1, usercolor), [trafo.translate(5.9, 0.75)])
-c.insert(write(1, usercolor), [trafo.translate(6.25, 0.75)])
+c.insert(read(1, maintainercolor), [trafo.translate(6.1, 1.05)])
+c.insert(read(1, usercolor), [trafo.translate(6.1, 0.75)])
+c.insert(write(1, usercolor), [trafo.translate(6.45, 0.75)])
 
 opcolor = color.hsb(0.3, 1, 0.4)
 c.stroke(path.line(2.1, 2.5, 4.4, 1.2),
          [deco.earrow, style.linestyle.dashed, opcolor])
-c.text(2.3, 1.7, r'\textsf{fork}', [opcolor])
+c.text(2.3, 1.6, r'\textsf{fork}', [opcolor])
 
 c.writePDFfile('{}_2.pdf'.format(basename))
 
-c.text(2.3, 1.4, r'\scriptsize\textsf{(only once)}', [opcolor])
+c.text(2.3, 1.3, r'\scriptsize\textsf{(only once)}', [opcolor])
 
 p = path.path(path.moveto(5, 1.3),
-              path.curveto(5, 1.7, 4.6, 2.9, 2.1, 2.9))
+              path.curveto(5, 1.7, 4.6, 2.9, 2.4, 2.9))
 c.stroke(p, [deco.earrow, opcolor])
-c.text(3.8, 2.9, r'\textsf{pull request}', [opcolor])
+c.text(4.1, 2.7, r'\textsf{pull request}', [opcolor])
 
 p = path.path(path.moveto(0.5, 2.5),
               path.curveto(0.5, 0, 1.0, -1.5, 2.65, -1.5))
 c.stroke(p, [deco.earrow, opcolor])
-c.text(0.2, -1.2, r'\textsf{pull \scriptsize or}', [opcolor])
-c.text(0.2, -1.7, r'\textsf{fetch/merge}', [opcolor])
+c.text(0.1, -1.3, r'\textsf{pull \scriptsize or}', [opcolor])
+c.text(0.1, -1.75, r'\textsf{fetch/merge}', [opcolor])
 
 p = path.path(path.moveto(4.0, -1.1),
               path.curveto(4.8, -0.5, 5, 0., 5, 0.5))
