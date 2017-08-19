@@ -43,7 +43,7 @@
   language={}
   ,basicstyle={\ttfamily\scriptsize}
   ,alsoletter=$
-  ,backgroundcolor=\color{black!10}
+  ,backgroundcolor=\color{black!5}
 }
 
 \graphicspath{{./images/}}
@@ -247,7 +247,7 @@ The common Git guides are:
 concept guides. See 'git help <command>' or 'git help <concept>'
 to read about a specific subcommand or concept.
  \end{lstlisting}
- \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}, escapechar=\%]
 $git help everyday
 
 NAME
@@ -260,10 +260,10 @@ DESCRIPTION
        Git users can broadly be grouped into four categories for the purposes of
        describing here a small set of useful command for everyday Git.
 
-       -   Individual Developer (Standalone) commands are essential for anybody who
+       %\cdot%   Individual Developer (Standalone) commands are essential for anybody who
            makes a commit, even for somebody who works alone.
 
-       -   If you work with other people, you will need commands listed in the
+       %\cdot%   If you work with other people, you will need commands listed in the
            Individual Developer (Participant) section as well.
 ...
  \end{lstlisting}
