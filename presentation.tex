@@ -6,6 +6,7 @@
 \usepackage{beramono}
 \usepackage{fontawesome}
 \usepackage{manfnt}
+\usepackage{amsmath}
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{hyperref}
@@ -43,6 +44,7 @@
   ,basicstyle={\ttfamily\scriptsize}
   ,alsoletter=$
   ,backgroundcolor=\color{black!5}
+  ,postbreak=\mbox{\textcolor{gitgreen}{$\hookrightarrow$}\space}
 }
 
 \graphicspath{{./images/}}
@@ -960,9 +962,16 @@ Resolving deltas: 100% (121/121), done.
 Checking connectivity... done.
  \end{lstlisting}
 
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+$ ls euroscipy-git-tutorial/
+images  LICENSE  presentation.tex  README.md
+ \end{lstlisting}
+
  or if you just want the current version
- \begin{lstlisting}[basicstyle={\ttfamily\tiny}, escapechar=\%, breaklines=true]
-$ git clone %\alert{\texttt{-\/-depth=1}}% https://github.com/gertingold/euroscipy-git-tutorial.git
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}
+                    ,escapechar=\|
+                   ]
+$ git clone |\alert{\texttt{-\/-depth=1}}| https://github.com/gertingold/euroscipy-git-tutorial.git
 Cloning into 'euroscipy-git-tutorial'...
 remote: Counting objects: 23, done.
 remote: Compressing objects: 100% (23/23), done.
