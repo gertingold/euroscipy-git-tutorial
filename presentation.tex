@@ -945,9 +945,33 @@ Date:   Sun Aug 13 16:16:46 2017 +0200
  \end{itemize}
 \end{frame}
 
-\begin{frame}{Cloning a repository}
+\begin{frame}[fragile]{Cloning a repository}
  \structure{Scenario:} You want to get the content of a repository without contributing
 	to its development.
+
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+$ git clone https://github.com/gertingold/euroscipy-git-tutorial.git
+Cloning into 'euroscipy-git-tutorial'...
+remote: Counting objects: 205, done.
+remote: Compressing objects: 100% (30/30), done.
+remote: Total 205 (delta 40), reused 61 (delta 37), pack-reused 138
+Receiving objects: 100% (205/205), 354.93 KiB | 0 bytes/s, done.
+Resolving deltas: 100% (121/121), done.
+Checking connectivity... done.
+ \end{lstlisting}
+
+ or if you just want the current version
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}, escapechar=\%, breaklines=true]
+$ git clone %\alert{\texttt{-\/-depth=1}}% https://github.com/gertingold/euroscipy-git-tutorial.git
+Cloning into 'euroscipy-git-tutorial'...
+remote: Counting objects: 23, done.
+remote: Compressing objects: 100% (23/23), done.
+remote: Total 23 (delta 3), reused 14 (delta 0), pack-reused 0
+Unpacking objects: 100% (23/23), done.
+Checking connectivity... done.
+$ ls euroscipy-git-tutorial/
+images  LICENSE  presentation.tex  README.md
+ \end{lstlisting}
 
 \end{frame}
 
