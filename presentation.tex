@@ -994,7 +994,29 @@ images  LICENSE  presentation.tex  README.md
  \only<3>{\includegraphics[width=\textwidth]{github-oss_3}}
 \end{frame}
 
-\begin{frame}{Remote branches}
+\begin{frame}[fragile]{Remote branches}
+ \includegraphics[width=\textwidth]{fork}
+
+ \structure{clone your forked project}
+ \addtolength\linewidth{0.5truecm}
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
+$ git pull git@github.com:gertingold/scipy-lecture-notes
+$ cd scipy-lecture-notes
+scipy-lecture-notes$ git remote -v
+origin  git@github.com:gertingold/scipy-lecture-notes.git (fetch)
+origin  git@github.com:gertingold/scipy-lecture-notes.git (push)
+ \end{lstlisting}
+
+ \structure{tell Git about the upstream repository}
+
+ \begin{lstlisting}[basicstyle={\ttfamily\tiny}, breaklines=true, escapechar=\%]
+gert@teide:[...]/scipy-lecture-notes: git remote add upstream git@github.com:scipy-lecture-notes/scipy-lecture-notes.git
+gert@teide:[...]/scipy-lecture-notes: git remote -v
+origin  git@github.com:gertingold/scipy-lecture-notes.git (fetch)
+origin  git@github.com:gertingold/scipy-lecture-notes.git (push)
+%\textcolor{gitred}{upstream}%        git@github.com:scipy-lecture-notes/scipy-lecture-notes.git (fetch)
+%\textcolor{gitred}{upstream}%        git@github.com:scipy-lecture-notes/scipy-lecture-notes.git (push)
+ \end{lstlisting}
 \end{frame}
 
 \end{document}
