@@ -1000,7 +1000,8 @@ images  LICENSE  presentation.tex  README.md
  \structure{clone your forked project}
  \addtolength\linewidth{0.5truecm}
  \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
-$ git pull git@github.com:gertingold/scipy-lecture-notes
+$ git clone git@github.com:gertingold/scipy-lecture-notes
+...
 $ cd scipy-lecture-notes
 scipy-lecture-notes$ git remote -v
 origin  git@github.com:gertingold/scipy-lecture-notes.git (fetch)
@@ -1017,6 +1018,60 @@ origin  git@github.com:gertingold/scipy-lecture-notes.git (push)
 %\textcolor{gitred}{upstream}%        git@github.com:scipy-lecture-notes/scipy-lecture-notes.git (fetch)
 %\textcolor{gitred}{upstream}%        git@github.com:scipy-lecture-notes/scipy-lecture-notes.git (push)
  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Updating from the upstream repository}
+ \structure{fetch and merge}
+ \begin{lstlisting}
+git fetch upstream
+ \end{lstlisting}
+ \begin{itemize}
+  \item download objects and refs (branches and tags) from the upstream
+         repository
+  \item the current working copy remains unchanged $\rightarrow$ opportunity to check
+      the changes
+ \end{itemize}
+ \begin{lstlisting}
+git merge upstream/master
+ \end{lstlisting}
+ \begin{itemize}
+  \item merge the fetched objects from \texttt{upstream/master} into the current
+        working copy
+ \end{itemize}
+
+ \structure{pull}
+ \begin{lstlisting}
+git pull upstream
+ \end{lstlisting}
+ \begin{itemize}
+  \item fetch and merge in one step
+  \item no control over merged changes
+ \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Updating the origin repository}
+ \structure{push}
+ \begin{lstlisting}
+  git push origin 
+ \end{lstlisting}
+ \begin{itemize}
+  \item \texttt{origin} can only brought up-to-date with \texttt{upstream} via
+      the local repository
+  \item push new material to \texttt{origin} so that it can be made available
+      to \texttt{upstream} by means of a pull request
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Making a pull request}
+ \structure{scenario:} You want to have your new material included in the
+ \texttt{upstream} repository.
+
+ \begin{enumerate}
+  \item develop the new material in a separate branch
+  \item push the new material to \texttt{origin}
+  \item make a pull request (= merge request on Gitlab)
+ \end{enumerate}
 \end{frame}
 
 \end{document}
