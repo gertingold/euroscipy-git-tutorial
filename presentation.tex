@@ -1063,7 +1063,7 @@ git pull upstream
  \end{itemize}
 \end{frame}
 
-\begin{frame}{Making a pull request}
+\begin{frame}{Making a pull request I}
  \structure{scenario:} You want to have your new material included in the
  \texttt{upstream} repository.
 
@@ -1072,6 +1072,24 @@ git pull upstream
   \item push the new material to \texttt{origin}
   \item make a pull request (= merge request on Gitlab)
  \end{enumerate}
+
+ \includegraphics[width=\textwidth]{pullrequest1}
+\end{frame}
+
+\begin{frame}{Making a pull request II}
+ \begin{enumerate}
+  \setcounter{enumi}{3}
+  \item describe the purpose of your pull request
+  \item create the pull request
+ \end{enumerate}
+ \begin{center}
+  \includegraphics[width=0.7\textwidth]{pullrequest2}
+ \end{center}
+
+ \begin{itemize}
+  \item new commits to the feature branch will be added to the pull request
+      once they are pushed to \texttt{origin}
+ \end{itemize}
 \end{frame}
 
 \end{document}
