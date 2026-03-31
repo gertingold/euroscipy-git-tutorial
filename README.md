@@ -17,3 +17,5 @@ To build the images from the sources in `images/src`, [PyX 0.14.1](https://pypi.
 ##### [v2017](https://github.com/gertingold/euroscipy-git-tutorial/releases/tag/v2017)
 Introductory tutorial given at EuroSciPy 2017 in Erlangen on August 29, 2017.
 A video is available on [Youtube](https://www.youtube.com/watch?v=mkQzl2v7BuI).
+##### [v2026](https://github.com/gertingold/euroscipy-git-tutorial/releases/tag/v2026)
+Updated tutorial given at the Universidade Federal do Rio de Janeiro on April 1, 2026.
