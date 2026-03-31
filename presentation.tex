@@ -253,46 +253,6 @@ DESCRIPTION
  \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Accessing Git tutorials}
- \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
-$ git help -g
-The common Git guides are:
-
-   attributes   Defining attributes per path
-   everyday     Everyday Git With 20 Commands Or So
-   glossary     A Git glossary
-   ignore       Specifies intentionally untracked files to ignore
-   modules      Defining submodule properties
-   revisions    Specifying revisions and ranges for Git
-   tutorial     A tutorial introduction to Git (for version 1.5.1 or newer)
-   workflows    An overview of recommended workflows with Git
-
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
- \end{lstlisting}
- \begin{lstlisting}[basicstyle={\ttfamily\tiny}, escapechar=\%]
-$git help everyday
-
-NAME
-       giteveryday - A useful minimum set of commands for Everyday Git
-
-SYNOPSIS
-       Everyday Git With 20 Commands Or So
-
-DESCRIPTION
-       Git users can broadly be grouped into four categories for the purposes of
-       describing here a small set of useful command for everyday Git.
-
-       %\cdot%   Individual Developer (Standalone) commands are essential for anybody who
-           makes a commit, even for somebody who works alone.
-
-       %\cdot%   If you work with other people, you will need commands listed in the
-           Individual Developer (Participant) section as well.
-...
- \end{lstlisting}
-\end{frame}
-
 \begin{frame}{The prime time project}
  \textit{\structure{Question}}
 
@@ -320,6 +280,9 @@ DESCRIPTION
  \begin{lstlisting}
 ~/primetime$ git init
  \end{lstlisting}
+
+Git uses 'master' as the name for the default branch. Nowadays, 'main' is more
+often used. Git gives information on how to change the name of the default branch.
 
  \vspace{\baselineskip}
  \structure{What has happened?}
@@ -378,7 +341,7 @@ print(sum(istime(n) for n in range(2360)))
 ~/primetime$ git status
 On branch master
 
-Initial commit
+No commits yet
 
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
@@ -404,7 +367,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 ~/primetime$ git status
 On branch master
 
-Initial commit
+No commits yet
 
 Changes to be committed:
   (use "git rm --cached <file>..." to unstage)
@@ -433,7 +396,7 @@ Changes to be committed:
 \begin{frame}[fragile]{Committing a file}
  \begin{lstlisting}
 ~/primetime$ git commit -m'added function to identify times'
-[master (root-commit) 3733ef5] added function to identify times
+[master (root-commit) 39f9962] added function to identify times
  1 file changed, 5 insertions(+)
  create mode 100644 primetime.py
  \end{lstlisting}
@@ -503,13 +466,11 @@ print(sum(isprime(n) for n in range(2360) if istime(n)))
 On branch master
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-        modified:   %\textcolor{gitred}{primetime.py}%
+  (use "git restore <file>..." to discard changes in working directory)
+        %\textcolor{gitred}{modified:   primetime.py}%
 
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
-
         %\textcolor{gitred}{\_\_pycache\_\_/}%
         %\textcolor{gitred}{primes.py}%
 
@@ -546,7 +507,7 @@ __pycache__/
  \begin{lstlisting}
 ~/primetime$ git add .gitignore
 ~/primetime$ git commit -m'.gitignore added'
-[master c552c10] .gitignore added
+[master e7bdbe6] .gitignore added
  1 file changed, 1 insertion(+)
  create mode 100644 .gitignore
  \end{lstlisting}
@@ -554,15 +515,14 @@ __pycache__/
 ~/primetime$ git add primetime.py
 ~/primetime$ git add primes.py
 ~/primetime$ git status
-On branch master
+On branch mastermodified:   
 Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-        new file:   %\textcolor{gitgreen}{primes.py}%
-        modified:   %\textcolor{gitgreen}{primetime.py}%
+  (use "git restore --staged <file>..." to unstage)
+        %\textcolor{gitgreen}{new file:   primes.py}%
+        %\textcolor{gitgreen}{modified:   primetime.py}%
 
 ~/primetime$ git commit -m'first version of primetime completed'
-[master 116fd26] first version of primetime completed
+[master a3db1e0] first version of primetime completed
  2 files changed, 9 insertions(+), 1 deletion(-)
  create mode 100644 primes.py
  \end{lstlisting}
@@ -578,7 +538,7 @@ nothing to commit, working tree clean
   \item We are on branch \texttt{master}, the default branch
  \end{itemize}
  \begin{lstlisting}[escapechar=\%]
-gert@gli7440:~/primetime$ git branch
+~/primetime$ git branch
 * %\textcolor{gitgreen}{master}%
  \end{lstlisting}
  \structure{What are branches good for?}
@@ -601,22 +561,22 @@ gert@gli7440:~/primetime$ git branch
  version in the master branch is always working.
 
  \begin{lstlisting}[breaklines=true]
-~/primetime$ git checkout eratosthenes
-error: pathspec 'eratosthenes' did not match any file(s) known to git.
+~/primetime$ git switch eratosthenes
+fatal: invalid reference: eratosthenes
  \end{lstlisting}
  \begin{itemize}
   \item \texttt{git checkout} changes between branches, but our branch
-        does not yet exist. Use option \texttt{-b}
+        does not yet exist. Use option \texttt{-c} for 'create'.
  \end{itemize}
  \begin{lstlisting}
-gert@gli7440:~/primetime$ git checkout -b eratosthenes
+~/primetime$ git switch -c eratosthenes
 Switched to a new branch 'eratosthenes'
  \end{lstlisting}
 
  \vspace{0.2truecm}
  Let us verify the branch
  \begin{lstlisting}[escapechar=\%]
-gert@gli7440:~/primetime$ git branch
+~/primetime$ git branch
 * %\textcolor{gitgreen}{eratosthenes}%
   master
  \end{lstlisting}
@@ -646,7 +606,7 @@ def eratosthenes(nmax):
  \end{lstlisting}
  \begin{lstlisting}
 ~/primetime$ git commit -a -m'added sieve of Eratosthenes'
-[eratosthenes 982ae11] added sieve of Eratosthenes
+[eratosthenes 4745a54] added sieve of Eratosthenes
  1 file changed, 12 insertions(+)
  \end{lstlisting}
 \end{frame}
@@ -665,7 +625,7 @@ print(sum(istime(n) for n in eratosthenes(2359)))
  \end{lstlisting}
  \begin{lstlisting}
 ~/primetime$ git commit -a -m'make use of Eratosthenes in primetime'
-[eratosthenes c9dfe03] make use of Eratosthenes in primetime
+[eratosthenes 7fb63a4] make use of Eratosthenes in primetime
  1 file changed, 2 insertions(+), 2 deletions(-)
  \end{lstlisting}
 \end{frame}
@@ -676,7 +636,7 @@ print(sum(istime(n) for n in eratosthenes(2359)))
 
  First switch to the master branch:
  \begin{lstlisting}
-~/primetime$ git checkout master
+~/primetime$ git switch master
 Switched to branch 'master'
  \end{lstlisting}
 
@@ -694,7 +654,7 @@ def isprime(n):
  \end{lstlisting}
  \begin{lstlisting}
 ~/primetime$ git commit -a -m'improved prime test'
-[master ebc424d] improved prime test
+[master ac7293c] improved prime test
  1 file changed, 3 insertions(+), 1 deletion(-)
  \end{lstlisting}
 \end{frame}
@@ -703,13 +663,13 @@ def isprime(n):
  \addtolength\linewidth{0.5truecm}
  \begin{lstlisting}[escapechar=\%]
 ~/primetime$ git log  --graph --branches --oneline
-* %\textcolor{gitbrown}{ebc424d}% improved prime test
-%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
-%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{982ae11}% added sieve of Eratosthenes
-%\textcolor{gitred}{|/}%  
-* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
-* %\textcolor{gitbrown}{c552c10}% .gitignore added
-* %\textcolor{gitbrown}{3733ef5}% added function to identify times
+ * %\textcolor{gitbrown}{ac7293c}% (%\textcolor{gitblue}{HEAD}% -> %\textcolor{gitgreen}{master}%) improved prime test
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{7fb63a4}% (%\textcolor{gitgreen}{eratosthenes}%) make use of the sieve of Erathosthenes
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{4745a54}% added sieve of Eratosthenes
+%\textcolor{gitred}{|/}%
+* %\textcolor{gitbrown}{a3db1e0}% first version of primetime completed
+* %\textcolor{gitbrown}{e7bdbe6}% .gitignore added
+* %\textcolor{gitbrown}{39f9962}% added function to identify times
  \end{lstlisting}
 
  \vspace{0.2truecm}
@@ -718,11 +678,11 @@ def isprime(n):
  \begin{lstlisting}[escapechar=\%]
 ~/primetime$ git branch
   eratosthenes
-  * %\textcolor{gitgreen}{master}%
-  ~/primetime$ git merge eratosthenes
-  Auto-merging primes.py
-  CONFLICT (content): Merge conflict in primes.py
-  Automatic merge failed; fix conflicts and then commit the result.
+* %\textcolor{gitgreen}{master}%
+~/primetime$ git merge eratosthenes
+Auto-merging primes.py
+CONFLICT (content): Merge conflict in primes.py
+Automatic merge failed; fix conflicts and then commit the result.
  \end{lstlisting}
  \begin{itemize}
   \item \texttt{primetime.py} corresponds now to the \texttt{eratosthenes} branch
@@ -770,29 +730,55 @@ def isprime(n):
  \end{lstlisting}
  \begin{lstlisting}
 ~/primetime$ git commit -a
-[master 5782233] Merge branch 'eratosthenes'
+[master a930c93] Merge branch 'eratosthenes'
  \end{lstlisting}
  \begin{lstlisting}[escapechar=\%]
 ~/primetime$ git log --graph --branches --oneline
-*   %\textcolor{gitbrown}{5782233}% Merge branch 'eratosthenes'
-%\textcolor{gitred}{|}\textcolor{gitgreen}{\textbackslash}%  
-%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
-%\textcolor{gitred}{| }%* %\textcolor{gitbrown}{982ae11}% added sieve of Eratosthenes
-* %\textcolor{gitgreen}{|}% %\textcolor{gitbrown}{ebc424d}% improved prime test
-%\textcolor{gitgreen}{|/}%  
-* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
-* %\textcolor{gitbrown}{c552c10}% .gitignore added
-* %\textcolor{gitbrown}{3733ef5}% added function to identify times
+*   %\textcolor{gitbrown}{a930c93}% (%\textcolor{gitblue}{HEAD}% -> %\textcolor{gitgreen}{master}%) Merge branch 'eratosthenes'
+%\textcolor{gitred}{|}%%\textcolor{gitgreen}{\textbackslash}%
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{7fb63a4}% (%\textcolor{gitgreen}{eratosthenes}%) make use of the sieve of Erathosthenes
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{4745a54}% added sieve of Eratosthenes
+* %\textcolor{gitgreen}{|}% %\textcolor{gitbrown}{ac7293c}% improved prime test
+%\textcolor{gitgreen}{|/}%
+* %\textcolor{gitbrown}{a3db1e0}% first version of primetime completed
+* %\textcolor{gitbrown}{e7bdbe6}% .gitignore added
+* %\textcolor{gitbrown}{39f9962}% added function to identify times
  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Accessing a specific version}
+ \begin{lstlisting}[escapechar=\%]
+~/primetime$ git log --oneline --graph --branches --decorate
+*   %\textcolor{gitbrown}{a930c93}% (%\textcolor{gitblue}{HEAD}% -> %\textcolor{gitgreen}{master}%) Merge branch 'eratosthenes'
+%\textcolor{gitred}{|}%%\textcolor{gitgreen}{\textbackslash}%
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{7fb63a4}% (%\textcolor{gitgreen}{eratosthenes}%) make use of the sieve of Erathosthenes
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{4745a54}% added sieve of Eratosthenes
+* %\textcolor{gitgreen}{|}% %\textcolor{gitbrown}{ac7293c}% improved prime test
+%\textcolor{gitgreen}{|/}%
+* %\textcolor{gitbrown}{a3db1e0}% first version of primetime completed
+* %\textcolor{gitbrown}{e7bdbe6}% .gitignore added
+* %\textcolor{gitbrown}{39f9962}% added function to identify times
+ \end{lstlisting}
+ \begin{itemize}
+  \item absolute reference: HEAD or SHA1 hash
+  \item relative reference:\\[0.1truecm]
+        \begin{tabular}{lll}
+         parent & HEAD\textasciicircum & \texttt{ac7293c}\\
+         parent & e7bdbe63\textasciicircum & \texttt{39f9962}\\
+         2nd parent & HEAD\textasciicircum2 & \texttt{7fb63a4}\\
+         grandparent & HEAD\textasciicircum\textasciicircum & \texttt{a3db1e0}\\
+         grandparent & HEAD\textasciitilde2 & \texttt{a3db1e0}\\
+        \end{tabular}
+ \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Deleting a branch}
  \begin{lstlisting}
-~/primetime$ git branch -D eratosthenes
-Deleted branch eratosthenes (was c9dfe03).
+~/primetime$ git branch -d eratosthenes
+Deleted branch eratosthenes (was 7fb63a4).
  \end{lstlisting}
  \begin{itemize}
-  \item option D must be uppercase = \alert{Attention, danger!}
+  \item In case of danger of loss, option -D is required.\\\textcolor{gitred}{Be careful!}
  \end{itemize}
  \begin{lstlisting}[escapechar=\%]
 ~/primetime$ git branch
@@ -803,95 +789,75 @@ Deleted branch eratosthenes (was c9dfe03).
  \end{itemize}
  \begin{lstlisting}[escapechar=\%]
 ~/primetime$ git log --graph --branches --oneline
-*   %\textcolor{gitbrown}{5782233}% Merge branch 'eratosthenes'
-%\textcolor{gitred}{|}\textcolor{gitgreen}{\textbackslash}%  
-%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
-%\textcolor{gitred}{| }%* %\textcolor{gitbrown}{982ae11}% added sieve of Eratosthenes
-* %\textcolor{gitgreen}{|}% %\textcolor{gitbrown}{ebc424d}% improved prime test
-%\textcolor{gitgreen}{|/}%  
-* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
-* %\textcolor{gitbrown}{c552c10}% .gitignore added
-* %\textcolor{gitbrown}{3733ef5}% added function to identify times
+*   %\textcolor{gitbrown}{a930c93}% (%\textcolor{gitblue}{HEAD}% -> %\textcolor{gitgreen}{master}%) Merge branch 'eratosthenes'
+%\textcolor{gitred}{|}%%\textcolor{gitgreen}{\textbackslash}%
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{7fb63a4}% make use of the sieve of Erathosthenes
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{4745a54}% added sieve of Eratosthenes
+* %\textcolor{gitgreen}{|}% %\textcolor{gitbrown}{ac7293c}% improved prime test
+%\textcolor{gitgreen}{|/}%
+* %\textcolor{gitbrown}{a3db1e0}% first version of primetime completed
+* %\textcolor{gitbrown}{e7bdbe6}% .gitignore added
+* %\textcolor{gitbrown}{39f9962}% added function to identify times
  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Accessing a specific version}
- \begin{lstlisting}[escapechar=\%]
-~/primetime$ git log --oneline --graph --branches --decorate
-*   %\textcolor{gitbrown}{5782233 (}\textcolor{gitblue}{HEAD ->} \textcolor{gitgreen}{master}\textcolor{gitbrown}{)}% Merge branch 'eratosthenes'
-%\textcolor{gitred}{|}\textcolor{gitgreen}{\textbackslash}%  
-%\textcolor{gitred}{|} * \textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
-%\textcolor{gitred}{|} * \textcolor{gitbrown}{982ae11}% added sieve of Eratosthenes
-* %\textcolor{gitgreen}{|} \textcolor{gitbrown}{ebc424d}% improved prime test
-%\textcolor{gitgreen}{|/}%  
-* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
-* %\textcolor{gitbrown}{c552c10}% .gitignore added
-* %\textcolor{gitbrown}{3733ef5}% added function to identify times
- \end{lstlisting}
- \begin{itemize}
-  \item absolute reference: HEAD or SHA1 hash
-  \item relative reference:\\[0.1truecm]
-        \begin{tabular}{lll}
-         parent & HEAD\textasciicircum & \texttt{ebc424d}\\
-         parent & c552c10\textasciicircum & \texttt{3733ef5}\\
-         2nd parent & HEAD\textasciicircum2 & \texttt{c9dfe03}\\
-         grandparent & HEAD\textasciicircum\textasciicircum & \texttt{116fd26}\\
-         grandparent & HEAD\textasciitilde2 & \texttt{116fd26}\\
-        \end{tabular}
- \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Detached HEAD}
  \begin{lstlisting}[basicstyle={\ttfamily\tiny}]
-~/primetime$ git checkout 982ae11
-Note: checking out '982ae11'.
+~/primetime$ git checkout 4745a54
+Note: switching to '4745a54'.
 
 You are in 'detached HEAD' state. You can look around, make experimental
 changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by performing another checkout.
+state without impacting any branches by switching back to a branch.
 
 If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -b with the checkout command again. Example:
+do so (now or later) by using -c with the switch command. Example:
 
-  git checkout -b <new-branch-name>
+  git switch -c <new-branch-name>
 
-HEAD is now at 982ae11... added sieve of Eratosthenes
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 4745a54 added sieve of Eratosthenes
  \end{lstlisting}
 
- \begin{lstlisting}[escapechar=\%]
-~/primetime$ git log --oneline --graph --branches --decorate
-*   %\textcolor{gitbrown}{5782233 (}\textcolor{gitgreen}{master}\textcolor{gitbrown}{)}% Merge branch 'eratosthenes'
-%\textcolor{gitred}{|}\textcolor{gitgreen}{\textbackslash}%  
-%\textcolor{gitred}{|} * \textcolor{gitbrown}{c9dfe03}% make use of Eratosthenes in primetime
-%\textcolor{gitred}{|} * \textcolor{gitbrown}{982ae11 (}\textcolor{gitblue}{HEAD}\textcolor{gitbrown}{)}% added sieve of Eratosthenes
-* %\textcolor{gitgreen}{|} \textcolor{gitbrown}{ebc424d}% improved prime test
-%\textcolor{gitgreen}{|/}%  
-* %\textcolor{gitbrown}{116fd26}% first version of primetime completed
-* %\textcolor{gitbrown}{c552c10}% .gitignore added
-* %\textcolor{gitbrown}{3733ef5}% added function to identify times
+	\begin{lstlisting}[basicstyle={\ttfamily\tiny},escapechar=\%]
+~/primetime$ git log --graph --branches --oneline
+*   %\textcolor{gitbrown}{a930c93}% (%\textcolor{gitgreen}{master}%) Merge branch 'eratosthenes'
+%\textcolor{gitred}{|}%%\textcolor{gitgreen}{\textbackslash}%
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{7fb63a4}% make use of the sieve of Erathosthenes
+%\textcolor{gitred}{|}% * %\textcolor{gitbrown}{4745a54}% (%\textcolor{gitblue}{HEAD}%) added sieve of Eratosthenes
+* %\textcolor{gitgreen}{|}% %\textcolor{gitbrown}{ac7293c}% improved prime test
+%\textcolor{gitgreen}{|/}%
+* %\textcolor{gitbrown}{a3db1e0}% first version of primetime completed
+* %\textcolor{gitbrown}{e7bdbe6}% .gitignore added
+* %\textcolor{gitbrown}{39f9962}% added function to identify times
  \end{lstlisting}
 
  \begin{itemize}
   \item HEAD is not attached to a branch, it is detached
-  \item In order to commit something, a branch needs to be created
+  \item A branch needs to be created in order to commit
  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Attaching HEAD to a branch}
  \begin{lstlisting}[escapechar=\%]
 ~/primetime$ git branch
-* %\textcolor{gitgreen}{(HEAD detached at 982ae11)}%
+* %\textcolor{gitgreen}{(HEAD detached at 4745a54)}%
   master
  \end{lstlisting}
  \begin{lstlisting}[escapechar=\%]
-~/primetime$ git checkout -b experimental
+~/primetime$ git switch -c experimental
 Switched to a new branch 'experimental'
 ~/primetime$ git branch -v
-* %\textcolor{gitgreen}{experimental}% 982ae11 added sieve of Eratosthenes
-  master       5782233 Merge branch 'eratosthenes'
+* %\textcolor{gitgreen}{experimental}% 4745a54 added sieve of Eratosthenes
+  master       a930c93 Merge branch 'eratosthenes'
  \end{lstlisting}
  \begin{itemize}
-  \item Now we have a branch at \texttt{982ae11} on which we can work and commit
+  \item Now we have a branch at \texttt{4745a54} on which we can work and commit
         changes
  \end{itemize}
 \end{frame}
@@ -907,7 +873,7 @@ Switched to a new branch 'experimental'
 
  \structure{Tagging an older version}
  \begin{lstlisting}
-~/primetime$ git tag -a v0.1 116fd26 -m'early version'
+~/primetime$ git tag -a v0.1 a3db1e0 -m'early version'
  \end{lstlisting}
 
  \begin{lstlisting}
@@ -920,13 +886,13 @@ v0.1
 ~/primetime$ git show v0.1
 tag v0.1
 Tagger: Gert-Ludwig Ingold <gert.ingold@physik.uni-augsburg.de>
-Date:   Mon Aug 14 01:12:07 2017 +0200
+Date:   Tue Mar 31 22:29:53 2026 +0200
 
 early version
 
-commit 116fd26220dddb7ec3eb359d3c35ea9c312bb49c
+commit a3db1e03d46028b02c7ef01103a082395d8bc36e (tag: v0.1)
 Author: Gert-Ludwig Ingold <gert.ingold@physik.uni-augsburg.de>
-Date:   Sun Aug 13 16:16:46 2017 +0200
+Date:   Tue Mar 31 21:26:27 2026 +0200
 
     first version of primetime completed
 
